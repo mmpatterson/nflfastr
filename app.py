@@ -4,7 +4,10 @@ import json
 from collections import OrderedDict
 
 app = Flask(__name__)
-
+@app.route('/')
+def index():
+    return "<h1>Welcome to our server !!</h1>"
+    
 @app.route("/api/v1.0/play-by-play/<year>", methods = ['GET', 'POST'])
 def play_by_play(year):
     """Fetch nflfastR gameplay data for the given year."""
