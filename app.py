@@ -1,7 +1,5 @@
 from flask import Flask, jsonify, request
 import pandas as pd
-import json
-from collections import OrderedDict
 
 app = Flask(__name__)
 @app.route('/')
