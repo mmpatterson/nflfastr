@@ -18,7 +18,7 @@ def play_by_play(year, orient = 'records'):
         columns = request.json['columns']
         try:
             orient = request.json['orient']
-        else:
+        except:
             orient = orient
         year_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-data/blob/master/data/play_by_play_{year}.csv.gz?raw=true', compression = 'gzip', usecols=columns)
         year_dict = year_df.to_dict(orient=orient)
