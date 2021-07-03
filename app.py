@@ -71,5 +71,28 @@ def logos(orient = 'records'):
     logo_dict = logo_df.to_dict(orient="records")
     return jsonify(logo_dict)
 
+
+@app.route("/api/v1.0/draft_picks", methods = ['GET', 'POST'])
+def draft_picks(orient = 'records'):
+    """Fetch nflfastR draft data."""
+    if request.method == 'GET':
+        draft_df = pd.read_csv(f'https://github.com/nflverse/nfldata/blob/master/data/draft_picks.csv?raw=true')
+        draft_dict = draft_df.to_dict(orient="records")
+        return jsonify(draft_dict)
+    elif request.method == 'POST':
+        # Make years a list
+        years = request.json['years']
+        try:
+            orient = request.json['orient']
+        except:
+            orient = orient
+        draft_df = pd.read_csv(f'https://github.com/nflverse/nfldata/blob/master/data/draft_picks.csv?raw=true')
+        draft_df = draft_df.season.isin(years)
+        draft_dict = draft_df.to_dict(orient=orient)
+        return jsonify(draft_dict)
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
