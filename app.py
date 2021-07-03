@@ -88,6 +88,7 @@ def draft_picks(orient = 'records'):
             orient = "records"
         draft_df = pd.read_csv(f'https://github.com/nflverse/nfldata/blob/master/data/draft_picks.csv?raw=true')
         draft_df = draft_df.season.isin(years)
+        print(draft_df)
         draft_dict = draft_df.to_dict(orient=orient)
         return jsonify(draft_dict)
 
