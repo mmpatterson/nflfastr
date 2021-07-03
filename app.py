@@ -28,7 +28,7 @@ def play_by_play(year, orient = 'records'):
 def roster_agg(orient = 'records'):
     """Fetch all nflfastR roster data."""
     if request.method == 'GET':
-        roster_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-roster/tree/master/data/nflfastR-roster.csv.gz?raw=true', compression = 'gzip')
+        roster_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-roster/blob/master/data/nflfastR-roster.csv.gz?raw=true', compression = 'gzip')
         roster_dict = roster_df.to_dict(orient="records")
         return jsonify(roster_dict)
     elif request.method == 'POST':
@@ -38,7 +38,7 @@ def roster_agg(orient = 'records'):
             orient = request.json['orient']
         except:
             orient = orient
-        roster_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-roster/tree/master/data/nflfastR-roster.csv.gz?raw=true', compression = 'gzip', usecols=columns)
+        roster_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-roster/blob/master/data/nflfastR-roster.csv.gz?raw=true', compression = 'gzip', usecols=columns)
         roster_dict = roster_df.to_json(orient=orient)
         return roster_dict
 
@@ -46,7 +46,7 @@ def roster_agg(orient = 'records'):
 def roster_year(year, orient = 'records'):
     """Fetch nflfastR roster data for the given year."""
     if request.method == 'GET':
-        roster_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-roster/tree/master/data/seasons/roster_{year}.csv?raw=true')
+        roster_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-roster/blob/master/data/seasons/roster_{year}.csv?raw=true')
         roster_dict = roster_df.to_dict(orient="records")
         return jsonify(roster_dict)
     elif request.method == 'POST':
@@ -56,7 +56,7 @@ def roster_year(year, orient = 'records'):
             orient = request.json['orient']
         except:
             orient = orient
-        roster_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-roster/tree/master/data/seasons/roster_{year}.csv?raw=true', usecols=columns)
+        roster_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-roster/blob/master/data/seasons/roster_{year}.csv?raw=true', usecols=columns)
         roster_dict = roster_df.to_json(orient=orient)
         return roster_dict
 
