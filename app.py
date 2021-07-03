@@ -65,7 +65,7 @@ def roster_year(year, orient = 'records'):
         return roster_dict
 
 @app.route("/api/v1.0/logos", methods = ['GET'])
-def logos(year, orient = 'records'):
+def logos(orient = 'records'):
     """Fetch nflfastR logo data."""
     logo_df = pd.read_csv(f'https://github.com/nflverse/nfldata/blob/master/data/logos.csv?raw=true')
     logo_dict = logo_df.to_dict(orient="records")
