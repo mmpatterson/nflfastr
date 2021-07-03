@@ -4,7 +4,7 @@ import pandas as pd
 app = Flask(__name__)
 @app.route('/')
 def index():
-    return render_template("templates/index.html")
+    return render_template("index.html")
     
 @app.route("/api/v1.0/play-by-play/<year>", methods = ['GET', 'POST'])
 def play_by_play(year, orient = 'records'):
