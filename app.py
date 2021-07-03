@@ -24,23 +24,27 @@ def play_by_play(year, orient = 'records'):
         year_dict = year_df.to_json(orient=orient)
         return year_dict
 
-@app.route("/api/v1.0/roster/aggregate", methods = ['GET', 'POST'])
-def roster_agg(orient = 'records'):
-    """Fetch all nflfastR roster data."""
-    if request.method == 'GET':
-        roster_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-roster/blob/master/data/nflfastR-roster.csv.gz?raw=true', compression = 'gzip')
-        roster_dict = roster_df.to_dict(orient="records")
-        return jsonify(roster_dict)
-    elif request.method == 'POST':
-        # Column must be in list form
-        columns = request.json['columns']
-        try:
-            orient = request.json['orient']
-        except:
-            orient = orient
-        roster_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-roster/blob/master/data/nflfastR-roster.csv.gz?raw=true', compression = 'gzip', usecols=columns)
-        roster_dict = roster_df.to_json(orient=orient)
-        return roster_dict
+# ******************************************
+# ENDPOINT CURRENTLY NOT IN USE DUE TO TIMEOUT ERROR
+# ******************************************
+
+# @app.route("/api/v1.0/roster/aggregate", methods = ['GET', 'POST'])
+# def roster_agg(orient = 'records'):
+#     """Fetch all nflfastR roster data."""
+#     if request.method == 'GET':
+#         roster_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-roster/blob/master/data/nflfastR-roster.csv.gz?raw=true', compression = 'gzip')
+#         roster_dict = roster_df.to_dict(orient="records")
+#         return jsonify(roster_dict)
+#     elif request.method == 'POST':
+#         # Column must be in list form
+#         columns = request.json['columns']
+#         try:
+#             orient = request.json['orient']
+#         except:
+#             orient = orient
+#         roster_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-roster/blob/master/data/nflfastR-roster.csv.gz?raw=true', compression = 'gzip', usecols=columns)
+#         roster_dict = roster_df.to_json(orient=orient)
+#         return roster_dict
 
 @app.route("/api/v1.0/roster/<year>", methods = ['GET', 'POST'])
 def roster_year(year, orient = 'records'):
@@ -59,6 +63,13 @@ def roster_year(year, orient = 'records'):
         roster_df = pd.read_csv(f'https://github.com/nflverse/nflfastR-roster/blob/master/data/seasons/roster_{year}.csv?raw=true', usecols=columns)
         roster_dict = roster_df.to_json(orient=orient)
         return roster_dict
+
+@app.route("/api/v1.0/logos", methods = ['GET'])
+def roster_year(year, orient = 'records'):
+    """Fetch nflfastR logo data."""
+    logo_df = pd.read_csv(f'https://github.com/nflverse/nfldata/blob/master/data/logos.csv?raw=true')
+    logo_dict = logo_df.to_dict(orient="records")
+    return jsonify(logo_dict)
 
 if __name__ == "__main__":
     app.run(debug=True)
